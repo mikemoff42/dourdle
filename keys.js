@@ -2,12 +2,13 @@ let entHighlight;
 let backHighlight;
 
 class Key{
-  constructor(x,letter,row,color){
+  constructor(x,letter,row,color1,color2){
     this.xspa = width*0.05;
     this.yspa = this.xspa;
     this.xoffs = width*0.275;
-    this.yoffs = 6*yspacing+(height*0.15) + this.yspa/2;
-    this.color = color;
+    this.yoffs = 7*yspacing+(height*0.15) + this.yspa/2;
+    this.color1 = color1;
+    this.color2 = color2;
     this.letter = letter;
     this.highlight = false;
     
@@ -24,10 +25,17 @@ class Key{
   show(){
     push();
     textSize(width/30);
-    fill(this.color);
     square(this.pos.x,this.pos.y,this.xspa-2);
+    rectMode(CORNER);
+    noStroke();
+    fill(this.color1);
+    rect(this.pos.x-this.xspa/2+1,this.pos.y-this.yspa/2+2,this.xspa/2,this.xspa-4);
+    fill(this.color2);
+    rect(this.pos.x,this.pos.y-this.yspa/2+2,this.xspa/2-1,this.xspa-4);
     fill(0);
     text(this.letter,this.pos.x,this.pos.y);
+    
+    rectMode(CENTER);
     let x = mouseX;
     let y = mouseY;
     let xmin = this.pos.x - this.xspa/2;

@@ -14,7 +14,7 @@ function KeyBoard(){
       rowCount++;
       counter=0;
     }
-    allKeys[i] = new Key(counter,letters[i],rowCount,clr)
+    allKeys[i] = new Key(counter,letters[i],rowCount,clr,clr)
     counter++;
   }
   
