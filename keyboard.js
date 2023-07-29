@@ -22,7 +22,6 @@ function KeyBoard(){
 function showKeys(){
   for (let i=0;i<26;i++){
     allKeys[i].show();
-    
   }
   enterBackspace();
 }

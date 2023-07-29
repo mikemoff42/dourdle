@@ -37,6 +37,15 @@ class Word{
           }
         }
       }
+      
+      for (let i=0;i<5;i++){
+        winner1=true;
+
+        if(this.tmparr[i]!=' '){
+          winner1 = false;
+          break;
+        }
+      }
 
       for (let i=0;i<5;i++){
         let index = this.tmparr.indexOf(this.tmpans[i]);
@@ -57,7 +66,7 @@ class Word{
           }
         }
       }
-    } else if (!this.done){
+    } else if (!this.left && !this.done){
         for (let i=0;i<5;i++){
         if (this.arr[i] == this.answer[i]){
           this.colors[i]=Green;
@@ -68,6 +77,15 @@ class Word{
               allKeys[j].color2 = Green;
             }
           }
+        }
+      }
+      
+      for (let i=0;i<5;i++){
+        winner2=true;
+
+        if(this.tmparr[i]!=' '){
+          winner2 = false;
+          break;
         }
       }
 
@@ -91,38 +109,6 @@ class Word{
         }
       }
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-        
-    //if ((this.left && winner1) || (!this.left && winner2)) {}
-    
-    
-    if (this.left && winner1){
-      
-    } else if (!this.left && winner2){
-      
-    }
-    else {
-      for (let i=0;i<5;i++){
-        if (this.left) winner1=true;
-        else winner2=true;
-
-        if(this.tmparr[i]!=' '){
-          if (this.left) winner1=false;
-          else winner2 = false;
-          break;
-        }
-      }
-    }
-    
     if (this.left && winner1 && !this.done){
       this.level=level;
       for (let i=0;i<words.length;i++) words[i].done=true;

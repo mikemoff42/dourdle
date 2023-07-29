@@ -26,15 +26,29 @@ class Key{
     push();
     textSize(width/30);
     square(this.pos.x,this.pos.y,this.xspa-2);
-    rectMode(CORNER);
     noStroke();
-    fill(this.color1);
-    rect(this.pos.x-this.xspa/2+1,this.pos.y-this.yspa/2+2,this.xspa/2,this.xspa-4);
-    fill(this.color2);
-    rect(this.pos.x,this.pos.y-this.yspa/2+2,this.xspa/2-1,this.xspa-4);
+    
+    
+    if (!winner1 && !winner2){
+      push();
+      rectMode(CORNER);
+      fill(this.color1);
+      rect(this.pos.x-this.xspa/2+1,this.pos.y-this.yspa/2+2,this.xspa/2,this.xspa-4);
+      fill(this.color2);
+      rect(this.pos.x,this.pos.y-this.yspa/2+2,this.xspa/2-1,this.xspa-4);
+      pop();
+    } else if (winner1 && !winner){
+      fill(this.color2);
+      square(this.pos.x,this.pos.y,this.xspa-2);
+    } else if (winner2 && !winner){
+      fill(this.color1);
+      square(this.pos.x,this.pos.y,this.xspa-2);
+    }
+    
+    
+    
     fill(0);
     text(this.letter,this.pos.x,this.pos.y);
-    
     rectMode(CENTER);
     let x = mouseX;
     let y = mouseY;

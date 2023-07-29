@@ -54,7 +54,7 @@ function draw() {
 }
 function checkWinner(){
   push();
-  if (winner1 && winner2) winner=true;
+  winner = winner1 && winner2;
   if (winner){
     textSize(width/30);
     text('Winner!',width/2,height*0.05);
