@@ -58,6 +58,7 @@ function checkWinner(){
   if (winner){
     textSize(width/30);
     text('Winner!',width/2,height*0.05);
+    daily=false;
   } else if (level > 6){
     textSize(width/30);
     text('Game Over: '+answerText.toUpperCase()+' & '+answerText2.toUpperCase(),width/2,height*0.05);
@@ -128,6 +129,9 @@ function newGame(){
   if (freePlay) {
     ans = genNewWord();
     ans2 = genNewWord();
+    while (ans == ans2){
+      ans2 = genNewWord();
+    }
   }
   else{
     ans = WORDS[wordIndex];
