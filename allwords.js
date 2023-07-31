@@ -980,8 +980,6 @@ const WORDS = [
      'slomo',
      'vacuo',
      'woody',
-     'ohhhh',
-     'wheee',
      'taxon',
      'sonny',
      'quaff',
