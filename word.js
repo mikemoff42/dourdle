@@ -5,7 +5,6 @@ class Word{
     this.value = currentword;
     this.answer=ans;
     this.arr = [];
-    this.done=false;
     
     for (let i=0;i<5;i++){
       this.arr.push(this.value.charAt(i));
@@ -23,99 +22,58 @@ class Word{
     let Green = [0,255,0];
     let Yellow = [255,255,0];
     
-    
-    if (this.left && !this.done){
-      for (let i=0;i<5;i++){
-        if (this.arr[i] == this.answer[i]){
-          this.colors[i]=Green;
-          this.tmparr[i] = ' ';
-          this.tmpans[i] = '.';
-          for (let j=0;j<allKeys.length;j++){
-            if (this.answer[i] == allKeys[j].letter){
-              allKeys[j].color1 = Green;
-            }
-          }
-        }
-      }
-      
-      for (let i=0;i<5;i++){
-        winner1=true;
-
-        if(this.tmparr[i]!=' '){
-          winner1 = false;
-          break;
-        }
-      }
-
-      for (let i=0;i<5;i++){
-        let index = this.tmparr.indexOf(this.tmpans[i]);
-        if (index != -1){
-          this.colors[index] = Yellow;
-          this.tmparr[index] = ' ';
-          for (let j=0;j<allKeys.length;j++){
-            if (this.answer[i] == allKeys[j].letter){
-              allKeys[j].color1 = Yellow;
-            }
-          }
-        }
-      }
-      for (let i=0;i<5;i++){
+    for (let i=0;i<5;i++){
+      if (this.arr[i] == this.answer[i]){
+        this.colors[i]=Green;
+        this.tmparr[i] = ' ';
+        this.tmpans[i] = '.';
         for (let j=0;j<allKeys.length;j++){
-          if (this.tmparr[i]==allKeys[j].letter && allKeys[j].color1 != Green && allKeys[j].color1 != Yellow){
-            allKeys[j].color1=90;
-          }
-        }
-      }
-    } else if (!this.left && !this.done){
-        for (let i=0;i<5;i++){
-        if (this.arr[i] == this.answer[i]){
-          this.colors[i]=Green;
-          this.tmparr[i] = ' ';
-          this.tmpans[i] = '.';
-          for (let j=0;j<allKeys.length;j++){
-            if (this.answer[i] == allKeys[j].letter){
-              allKeys[j].color2 = Green;
-            }
-          }
-        }
-      }
-      
-      for (let i=0;i<5;i++){
-        winner2=true;
-
-        if(this.tmparr[i]!=' '){
-          winner2 = false;
-          break;
-        }
-      }
-
-      for (let i=0;i<5;i++){
-        let index = this.tmparr.indexOf(this.tmpans[i]);
-        if (index != -1){
-          this.colors[index] = Yellow;
-          this.tmparr[index] = ' ';
-          for (let j=0;j<allKeys.length;j++){
-            if (this.answer[i] == allKeys[j].letter){
-              allKeys[j].color2 = Yellow;
-            }
-          }
-        }
-      }
-      for (let i=0;i<5;i++){
-        for (let j=0;j<allKeys.length;j++){
-          if (this.tmparr[i]==allKeys[j].letter && allKeys[j].color1 != Green && allKeys[j].color1 != Yellow){
-            allKeys[j].color2=90;
+          if (this.answer[i] == allKeys[j].letter){
+            if (this.left) allKeys[j].color1 = Green;
+            else allKeys[j].color2 = Green;
           }
         }
       }
     }
-    if (this.left && winner1 && !this.done){
-      this.level=level;
-      for (let i=0;i<words.length;i++) words[i].done=true;
-    } else if (!this.left && winner2 && !this.done){
-      this.level=level;
-      for (let i=0;i<words2.length;i++) words2[i].done=true;
+
+    for (let i=0;i<5;i++){
+      if (this.left) winner1=true;
+      else winner2=true;
+
+      if(this.tmparr[i]!=' '){
+        if (this.left) winner1 = false;
+        else winner2 = false;
+        break;
+      }
     }
+
+    for (let i=0;i<5;i++){
+      let index = this.tmparr.indexOf(this.tmpans[i]);
+      if (index != -1){
+        this.colors[index] = Yellow;
+        this.tmparr[index] = ' ';
+        for (let j=0;j<allKeys.length;j++){
+          if (this.answer[i] == allKeys[j].letter){
+            if (this.left) allKeys[j].color1 = Yellow;
+            else allKeys[j].color2 = Yellow;
+          }
+        }
+      }
+    }
+    for (let i=0;i<5;i++){
+      for (let j=0;j<allKeys.length;j++){
+        if (this.tmparr[i]==allKeys[j].letter && allKeys[j].color1 != Green && allKeys[j].color1 != Yellow){
+          if (this.left) allKeys[j].color1=90;
+          else allKeys[j].color2=90;
+        }
+      }
+    }
+
+    // if (this.left && winner1){
+    //   this.level=level;
+    // } else if (!this.left && winner2){
+    //   this.level=level;
+    // }
   }
   
   show(){
