@@ -62,18 +62,13 @@ class Word{
     }
     for (let i=0;i<5;i++){
       for (let j=0;j<allKeys.length;j++){
-        if (this.tmparr[i]==allKeys[j].letter && allKeys[j].color1 != Green && allKeys[j].color1 != Yellow){
-          if (this.left) allKeys[j].color1=90;
-          else allKeys[j].color2=90;
+        if (this.left && this.tmparr[i]==allKeys[j].letter && allKeys[j].color1 != Green && allKeys[j].color1 != Yellow){
+          allKeys[j].color1=90;
+        } else if (!this.left && this.tmparr[i]==allKeys[j].letter && allKeys[j].color2 != Green && allKeys[j].color2 != Yellow){
+          allKeys[j].color2=90;
         }
       }
     }
-
-    // if (this.left && winner1){
-    //   this.level=level;
-    // } else if (!this.left && winner2){
-    //   this.level=level;
-    // }
   }
   
   show(){
