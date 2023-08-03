@@ -21,11 +21,20 @@ let redword;
 let daily;
 
 
+function getWordIndex(){
+  let dateoffset= 1690603223089; // 7-28-23
+  let two4hours = 86400000;
+  let today = ceil((Date.now() - dateoffset)/two4hours);
+  return today;
+}
+
+
 function setup() {
   createCanvas(windowHeight, windowHeight);
   daily = true;
   date = new Date();
-  wordIndex = ((date.getMonth())*31 + date.getDate())+(date.getFullYear()-2023)*366 - 214;
+  //wordIndex = ((date.getMonth())*31 + date.getDate())+(date.getFullYear()-2023)*366 - 214;
+  wordIndex = getWordIndex();
   wordIndex*=2;
   newGame();  
   for (let element of document.getElementsByClassName("p5Canvas")) {
