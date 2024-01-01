@@ -11,7 +11,7 @@ let notWord=false;
 let notWordTimer;
 let xspacing,xoff,yoff,yspacing;
 let winner1,winner2,winner;
-let newGameHighlight;
+let newGameHighlight,dailyPuzzleHighlight;
 let checkCurrentWord;
 
 let date;
@@ -19,7 +19,6 @@ let wordIndex,wordIndex2;
 let freePlay;
 let redword;
 let daily;
-
 
 function getWordIndex(){
   let dateoffset= 1690603223089; // 7-28-23
@@ -31,12 +30,7 @@ function getWordIndex(){
 
 function setup() {
   createCanvas(windowHeight, windowHeight);
-  daily = true;
-  date = new Date();
-  //wordIndex = ((date.getMonth())*31 + date.getDate())+(date.getFullYear()-2023)*366 - 214;
-  wordIndex = getWordIndex();
-  wordIndex*=2;
-  newGame();  
+  beginGame();
   for (let element of document.getElementsByClassName("p5Canvas")) {
     element.addEventListener("contextmenu", (e) => e.preventDefault());
   }
@@ -61,6 +55,15 @@ function draw() {
   }
   
 }
+
+function beginGame(){
+  daily = true;
+  date = new Date();
+  //wordIndex = ((date.getMonth())*31 + date.getDate())+(date.getFullYear()-2023)*366 - 214;
+  wordIndex = getWordIndex();
+  wordIndex*=2;
+  newGame();  
+}
 function checkWinner(){
   push();
   winner = winner1 && winner2;
@@ -73,13 +76,13 @@ function checkWinner(){
     text('Game Over: '+answerText.toUpperCase()+' & '+answerText2.toUpperCase(),width/2,height*0.05);
     
   }
-  if (winner || level > 6 || daily){
+  if (level == 0 || level > 6 || winner){
     let r=width*0.05;
     let x = mouseX;
     let y = mouseY;
     let cx = width*0.1;
-    let cy = height*0.1;
-    textSize(width/30);
+    let cy = height*0.21;
+    textSize(width/40);
     ellipseMode(CENTER);
     fill(200,90);
     circle(cx,cy,r*2);
@@ -93,8 +96,20 @@ function checkWinner(){
       circle(cx,cy,r*2);
     } else
       newGameHighlight=false;
+    cy = height*0.1;
+    fill(200,90);
+    circle(cx,cy,r*2);
+    fill(0);
+    text('Daily',cx,cy-width/60);
+    text('Puzzle',cx,cy+width/60);
+    d = dist(x,y,cx,cy);
+    if (d<r){
+      dailyPuzzleHighlight=true;
+      fill(220,90);
+      circle(cx,cy,r*2);
+    } else
+      dailyPuzzleHighlight=false;
   }
-  
   pop();
 }
 function drawSquares(){
@@ -181,6 +196,12 @@ function mousePressed(){
     newGame();
     daily=false;
   }
+  if (dailyPuzzleHighlight){
+    dailyPuzzleHighlight=false;
+    freePlay=false;
+    beginGame();
+  }
+  
   for (let k of allKeys){
     if (k.highlight && !(winner || level > 6)){
       currentword+=k.letter;
